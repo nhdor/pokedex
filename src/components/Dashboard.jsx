@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
 
-
 const StBox = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -21,8 +20,6 @@ const StCard = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   `
 
-
-
 const Dashboard = ({ selectedPokemon, setSelectedPokemon }) => {
 
   const handleDelete = (id) => {
@@ -37,7 +34,7 @@ const Dashboard = ({ selectedPokemon, setSelectedPokemon }) => {
         return (
             <StCard key={id}>
               <img src={img_url} alt='X'></img>
-              <h3>{korean_name}</h3>
+              <p>{korean_name}</p>
               <p>{'No.' + String(id).padStart(3, '0')}</p>
               <button onClick={()=>{handleDelete(id)}}>삭제</button>
             </StCard>
