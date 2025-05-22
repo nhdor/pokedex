@@ -14,7 +14,7 @@ const PokemonList = ({ selectedPokemon, setSelectedPokemon, pokemonList }) => {
   return (
     <StBox>
       {pokemonList.map(pokemon => (
-        <PokemonCard
+        <PokemonCard // Add border to PokemonCard
           selectedPokemon={selectedPokemon}
           setSelectedPokemon={setSelectedPokemon}
           key={pokemon.id}

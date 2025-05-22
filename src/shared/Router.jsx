@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../pages/Home';
 import Dex from '../pages/Dex';
 import PokemonList from '../components/PokemonList';
+import Detail from '../pages/Detail';
 
 // 2. Router 라는 함수를 만들고 아래와 같이 작성합니다.
 //BrowserRouter를 Router로 감싸는 이유는,
@@ -15,6 +16,7 @@ const Router = () => {
         <Route path='/home' element={<Home />} />
         <Route path='/dex' element={<Dex />} />
         <Route path='/pokemon' element={<PokemonList />} />
+        <Route path='/detail/:id' element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );
