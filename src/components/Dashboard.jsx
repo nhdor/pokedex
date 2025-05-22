@@ -1,19 +1,41 @@
 import React from 'react';
+import styled from "styled-components";
+
+
+const StBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 12px;
+  width: 120px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  `
 
 const Dashboard = ({ selectedPokemon }) => {
   return (
-    <div>
+    <StBox>
       {selectedPokemon.map(pokemon => {
         const { id, korean_name, img_url } = pokemon;
         return (
-          <>
-            <p>{'No.' + String(id).padStart(3, '0')}</p>
-            <div>{korean_name}</div>
-            <img src={img_url} alt='X'></img>
-          </>
+            <StCard key={id}>
+              <img src={img_url} alt='X'></img>
+              <h3>{korean_name}</h3>
+              <p>{'No.' + String(id).padStart(3, '0')}</p>
+              <button>삭제</button>
+            </StCard>
         );
       })}
-    </div>
+    </StBox>
   );
 };
 

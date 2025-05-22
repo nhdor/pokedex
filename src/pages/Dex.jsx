@@ -4,8 +4,12 @@ import PokemonList from '../components/PokemonList';
 import MOCK_DATA from '../data/mock';
 import React, { useState } from 'react';
 
+
+
+
 const Dex = () => {
   const [selectedPokemon, setSelectedPokemon] = useState([]);
+  
 
   return (
     <>

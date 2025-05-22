@@ -1,10 +1,18 @@
-import { React, useEffect } from 'react';
+import { React } from 'react';
+import styled from 'styled-components';
 
 import PokemonCard from './PokemonCard';
 
+const StBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
 const PokemonList = ({ selectedPokemon, setSelectedPokemon, pokemonList }) => {
   return (
-    <>
+    <StBox>
       {pokemonList.map(pokemon => (
         <PokemonCard
           selectedPokemon={selectedPokemon}
@@ -13,7 +21,7 @@ const PokemonList = ({ selectedPokemon, setSelectedPokemon, pokemonList }) => {
           pokemon={pokemon}
         />
       ))}
-    </>
+    </StBox>
   );
 };
 
