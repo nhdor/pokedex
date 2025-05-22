@@ -15,11 +15,17 @@ const PokemonCardSector = styled.div`
 const PokemonCard = ({ selectedPokemon, setSelectedPokemon, pokemon }) => {
   const { img_url, korean_name, id } = pokemon;
 
-  const clickHandler = () => {
+  const clickHandler = (pokemonId) => {
     if(selectedPokemon.length>5){
       alert('포켓몬은 6마리까지만 선택할 수 있습니다.');
       return;
     }
+
+    if(selectedPokemon.some(p => p.id === pokemonId)){
+      alert('이미 선택한 포켓몬입니다.');
+      return;
+    }
+
     setSelectedPokemon([...selectedPokemon, pokemon]);
     console.log(selectedPokemon);
   };
@@ -30,7 +36,9 @@ const PokemonCard = ({ selectedPokemon, setSelectedPokemon, pokemon }) => {
       <img src={img_url} alt='X'></img>
       <p>{korean_name}</p>
       <p>{'No.' + String(id).padStart(3, '0')}</p>
-      <button onClick={clickHandler}>추가</button>
+      <button onClick={()=>{
+        clickHandler(id)
+      }}>추가</button>
     </PokemonCardSector>
   );
 };
