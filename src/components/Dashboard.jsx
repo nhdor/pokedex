@@ -21,7 +21,14 @@ const StCard = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   `
 
-const Dashboard = ({ selectedPokemon }) => {
+
+
+const Dashboard = ({ selectedPokemon, setSelectedPokemon }) => {
+  const handleDelete = (id) => {
+    const newSelectedPokemon = selectedPokemon.filter(p => p.id !== id);
+    setSelectedPokemon(newSelectedPokemon);
+  }
+
   return (
     <StBox>
       {selectedPokemon.map(pokemon => {
@@ -31,7 +38,7 @@ const Dashboard = ({ selectedPokemon }) => {
               <img src={img_url} alt='X'></img>
               <h3>{korean_name}</h3>
               <p>{'No.' + String(id).padStart(3, '0')}</p>
-              <button>삭제</button>
+              <button onClick={handleDelete}>삭제</button>
             </StCard>
         );
       })}

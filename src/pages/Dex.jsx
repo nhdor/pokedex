@@ -14,7 +14,7 @@ const Dex = () => {
   return (
     <>
       <div>
-        <DashBoard selectedPokemon={selectedPokemon} />
+        <DashBoard setSelectedPokemon={setSelectedPokemon} selectedPokemon={selectedPokemon} />
       </div>
       <div>
         <PokemonList
