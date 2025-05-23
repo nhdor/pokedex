@@ -1,6 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const StView = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 const StDash = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -9,7 +16,9 @@ const StDash = styled.div`
   align-items: center;
   margin: 20px;
   border-radius: 10px;
-  border: 1px solid;
+  width: 90%;
+  height: 400px;
+  box-sizing: border-box;
 `;
 
 const StTitle = styled.div`
@@ -46,7 +55,7 @@ const Dashboard = ({ selectedPokemon, setSelectedPokemon }) => {
     setSelectedPokemon(newSelectedPokemon);
   };
   return (
-    <>
+    <StView>
       <StDash>
         <StTitle>나만의 포켓몬</StTitle>
         <StCardContainer>
@@ -69,7 +78,7 @@ const Dashboard = ({ selectedPokemon, setSelectedPokemon }) => {
           })}
         </StCardContainer>
       </StDash>
-    </>
+    </StView>
   );
 };
 

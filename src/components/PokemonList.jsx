@@ -9,7 +9,7 @@ const StBox = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid;
+
   margin: 20px;
   background-color: rgba(217, 244, 253, 0.57);
 `;
