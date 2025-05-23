@@ -8,6 +8,10 @@ const StBox = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
+  border: 1px solid;
+  margin: 20px;
+  background-color: rgba(217, 244, 253, 0.57);
 `;
 
 const PokemonList = ({ selectedPokemon, setSelectedPokemon, pokemonList }) => {
