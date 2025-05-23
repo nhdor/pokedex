@@ -8,22 +8,13 @@ const StBox = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
-
-  margin: 20px;
-  background-color: rgba(217, 244, 253, 0.57);
 `;
 
-const PokemonList = ({ selectedPokemon, setSelectedPokemon, pokemonList }) => {
+const PokemonList = ({ pokemonList }) => {
   return (
     <StBox>
       {pokemonList.map(pokemon => (
-        <PokemonCard // Add border to PokemonCard
-          selectedPokemon={selectedPokemon}
-          setSelectedPokemon={setSelectedPokemon}
-          key={pokemon.id}
-          pokemon={pokemon}
-        />
+        <PokemonCard key={pokemon.id} pokemon={pokemon} />
       ))}
     </StBox>
   );

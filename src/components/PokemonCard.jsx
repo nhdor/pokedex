@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { MyContext } from '../pages/Dex';
+import { useContext } from 'react';
 
 const PokemonCardSector = styled.div`
   border: 1px solid #ddd;
@@ -29,8 +31,9 @@ const StButton = styled.button`
   padding: 10px;
 `;
 
-const PokemonCard = ({ selectedPokemon, setSelectedPokemon, pokemon }) => {
+const PokemonCard = ({ pokemon }) => {
   const { img_url, korean_name, id } = pokemon;
+  const { selectedPokemon, setSelectedPokemon } = useContext(MyContext);
 
   const navigate = useNavigate();
 

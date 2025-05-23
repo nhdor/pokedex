@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { MyContext } from '../pages/Dex';
+import { useContext } from 'react';
 
 const StView = styled.div`
   display: flex;
@@ -49,11 +51,14 @@ const StCard = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-const Dashboard = ({ selectedPokemon, setSelectedPokemon }) => {
+const Dashboard = () => {
+  const { selectedPokemon, setSelectedPokemon } = useContext(MyContext);
+
   const handleDelete = id => {
     const newSelectedPokemon = selectedPokemon.filter(p => p.id !== id);
     setSelectedPokemon(newSelectedPokemon);
   };
+
   return (
     <StView>
       <StDash>
