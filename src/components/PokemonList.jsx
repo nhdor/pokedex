@@ -1,6 +1,7 @@
 import { React } from 'react';
 import styled from 'styled-components';
-
+import { MyContext } from '../pages/Dex';
+import { useContext } from 'react';
 import PokemonCard from './PokemonCard';
 
 const StBox = styled.div`
@@ -10,10 +11,11 @@ const StBox = styled.div`
   align-items: center;
 `;
 
-const PokemonList = ({ pokemonList }) => {
+const PokemonList = () => {
+  const { MOCK_DATA } = useContext(MyContext);
   return (
     <StBox>
-      {pokemonList.map(pokemon => (
+      {MOCK_DATA.map(pokemon => (
         <PokemonCard key={pokemon.id} pokemon={pokemon} />
       ))}
     </StBox>
