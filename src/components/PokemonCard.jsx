@@ -1,35 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { MyContext } from '../pages/Dex';
+import { MyContext } from '../App';
 import { useContext } from 'react';
-
-const PokemonCardSector = styled.div`
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 12px;
-  width: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px;
-  background-color: white;
-`;
-
-const Temp = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const StButton = styled.button`
-  background-color: rgb(26, 161, 30);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-`;
 
 const PokemonCard = ({ pokemon }) => {
   const { img_url, korean_name, id } = pokemon;
@@ -37,7 +10,7 @@ const PokemonCard = ({ pokemon }) => {
 
   const navigate = useNavigate();
 
-  const clickHandler = pokemonId => {
+  const addPokemonHandler = pokemonId => {
     if (selectedPokemon.length > 5) {
       alert('포켓몬은 6마리까지만 선택할 수 있습니다.');
       return;
@@ -67,7 +40,7 @@ const PokemonCard = ({ pokemon }) => {
       </Temp>
       <StButton
         onClick={() => {
-          clickHandler(id);
+          addPokemonHandler(id);
         }}
       >
         추가
@@ -77,3 +50,30 @@ const PokemonCard = ({ pokemon }) => {
 };
 
 export default PokemonCard;
+
+const PokemonCardSector = styled.div`
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  background-color: white;
+`;
+
+const Temp = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const StButton = styled.button`
+  background-color: rgb(26, 161, 30);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+`;

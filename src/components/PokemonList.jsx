@@ -1,6 +1,6 @@
 import { React } from 'react';
 import styled from 'styled-components';
-import { MyContext } from '../pages/Dex';
+import { MyContext } from '../App';
 import { useContext } from 'react';
 import PokemonCard from './PokemonCard';
 
