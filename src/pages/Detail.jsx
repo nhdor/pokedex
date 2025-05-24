@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import MOCK_DATA from '../data/mock';
 import { MyContext } from '../App';
 import { useContext } from 'react';
 
 const Detail = () => {
   const param = useParams();
 
-  const [value, setValue] = useState('추가하기');
-
   const { selectedPokemon, setSelectedPokemon, MOCK_DATA } =
     useContext(MyContext);
 
   const addPokemonHandler = pokemonId => {
-    //이미 DashBoard에 존재하는 경우
     if (selectedPokemon.some(p => p.id === pokemonId)) {
-      alert('이미 선택한 포켓몬입니다.');
-      setValue('삭제하기');
+      const newSelectedPokemon = selectedPokemon.filter(
+        p => p.id !== Number(param.id)
+      );
+
+      setSelectedPokemon(newSelectedPokemon);
+
       return;
     }
 
-    if (selectedPokemon.length > 5) {
+    if (selectedPokemon.length >= 6) {
       alert('포켓몬은 6마리까지만 선택할 수 있습니다.');
       return;
     }
@@ -29,8 +29,6 @@ const Detail = () => {
     const findPokemon = MOCK_DATA.find(
       pokemonObj => pokemonObj.id == pokemonId
     );
-
-    console.log(findPokemon);
 
     setSelectedPokemon([...selectedPokemon, findPokemon]);
   };

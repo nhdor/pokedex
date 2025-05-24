@@ -3,6 +3,44 @@ import styled from 'styled-components';
 import { MyContext } from '../App';
 import { useContext } from 'react';
 
+const Dashboard = () => {
+  const { selectedPokemon, setSelectedPokemon } = useContext(MyContext);
+
+  const handleDelete = id => {
+    const newSelectedPokemon = selectedPokemon.filter(p => p.id !== id);
+    setSelectedPokemon(newSelectedPokemon);
+  };
+
+  return (
+    <StView>
+      <StDash>
+        <StTitle>나만의 포켓몬</StTitle>
+        <StCardContainer>
+          {selectedPokemon.map(pokemon => {
+            const { id, korean_name, img_url } = pokemon;
+            return (
+              <StCard key={id}>
+                <img src={img_url} alt='X'></img>
+                <p>{korean_name}</p>
+                <p>{'No.' + String(id).padStart(3, '0')}</p>
+                <button
+                  onClick={() => {
+                    handleDelete(id);
+                  }}
+                >
+                  삭제
+                </button>
+              </StCard>
+            );
+          })}
+        </StCardContainer>
+      </StDash>
+    </StView>
+  );
+};
+
+export default Dashboard;
+
 const StView = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,41 +88,3 @@ const StCard = styled.div`
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
-
-const Dashboard = () => {
-  const { selectedPokemon, setSelectedPokemon } = useContext(MyContext);
-
-  const handleDelete = id => {
-    const newSelectedPokemon = selectedPokemon.filter(p => p.id !== id);
-    setSelectedPokemon(newSelectedPokemon);
-  };
-
-  return (
-    <StView>
-      <StDash>
-        <StTitle>나만의 포켓몬</StTitle>
-        <StCardContainer>
-          {selectedPokemon.map(pokemon => {
-            const { id, korean_name, img_url } = pokemon;
-            return (
-              <StCard key={id}>
-                <img src={img_url} alt='X'></img>
-                <p>{korean_name}</p>
-                <p>{'No.' + String(id).padStart(3, '0')}</p>
-                <button
-                  onClick={() => {
-                    handleDelete(id);
-                  }}
-                >
-                  삭제
-                </button>
-              </StCard>
-            );
-          })}
-        </StCardContainer>
-      </StDash>
-    </StView>
-  );
-};
-
-export default Dashboard;
