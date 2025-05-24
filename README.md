@@ -1,1 +1,1 @@
-poketmon Dict.
+Pokemon

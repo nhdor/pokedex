@@ -12,7 +12,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/home' element={<Home />} />
+        <Route path='/' element={<Home />} />
         <Route path='/dex' element={<Dex />} />
         <Route path='/pokemon' element={<PokemonList />} />
         <Route path='/detail/:id' element={<Detail />} />
