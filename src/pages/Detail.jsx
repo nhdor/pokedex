@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import MOCK_DATA from '../data/mock';
@@ -8,25 +8,23 @@ import { useContext } from 'react';
 const Detail = () => {
   const param = useParams();
 
+  const [value, setValue] = useState('추가하기');
+
   const { selectedPokemon, setSelectedPokemon, MOCK_DATA } =
     useContext(MyContext);
 
   const addPokemonHandler = pokemonId => {
-    // console.log(pokemonId);
+    //이미 DashBoard에 존재하는 경우
+    if (selectedPokemon.some(p => p.id === pokemonId)) {
+      alert('이미 선택한 포켓몬입니다.');
+      setValue('삭제하기');
+      return;
+    }
+
     if (selectedPokemon.length > 5) {
       alert('포켓몬은 6마리까지만 선택할 수 있습니다.');
       return;
     }
-
-    if (selectedPokemon.some(p => p.id === pokemonId)) {
-      alert('이미 선택한 포켓몬입니다.');
-      return;
-    }
-
-    //pokemonCard는 pokemonCardList에게 MOCK_DATA를 map으로 받아서 생성되는 component
-    //  {MOCK_DATA.map(pokemon => (
-    //   <PokemonCard key={pokemon.id} pokemon={pokemon} />
-    // ))}
 
     const findPokemon = MOCK_DATA.find(
       pokemonObj => pokemonObj.id == pokemonId
@@ -60,12 +58,17 @@ const Detail = () => {
         >
           뒤로가기
         </StButton>
+
         <StButton
           onClick={() => {
             addPokemonHandler(Number(param.id));
           }}
         >
-          추가하기
+          {selectedPokemon.some(p => {
+            return p.id === Number(param.id);
+          })
+            ? '삭제하기'
+            : '추가하기'}
         </StButton>
       </StButtonContainer>
     </StBox>
