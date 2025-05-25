@@ -9,6 +9,8 @@ const StBox = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  width: 88%;
+  background-color: rgba(217, 244, 253, 0.57);
 `;
 
 const PokemonList = () => {
