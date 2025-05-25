@@ -2,6 +2,26 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+const Home = () => {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <StBox>
+        <StImg src={'/static/pokemon.png'}></StImg>
+        <StButton
+          onClick={() => {
+            navigate('/dex');
+          }}
+        >
+          포켓몬 도감 시작하기
+        </StButton>
+      </StBox>
+    </>
+  );
+};
+
+export default Home;
 const StBox = styled.div`
   width: 100vw;
   height: 100vh;
@@ -27,24 +47,3 @@ const StImg = styled.img`
   height: 100px;
   margin: 30px;
 `;
-
-const Home = () => {
-  const navigate = useNavigate();
-
-  return (
-    <>
-      <StBox>
-        <StImg src={'/static/pokemon.png'}></StImg>
-        <StButton
-          onClick={() => {
-            navigate('/dex');
-          }}
-        >
-          포켓몬 도감 시작하기
-        </StButton>
-      </StBox>
-    </>
-  );
-};
-
-export default Home;
