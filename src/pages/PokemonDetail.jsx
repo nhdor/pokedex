@@ -8,7 +8,17 @@ const PokemonDetail = ({ selectedPokemon, setSelectedPokemon }) => {
   const param = useParams();
   //param.id = 문자열 주의!
 
-  const addHandler = pokemonId => {
+  const addPokemonHandler = pokemonId => {
+    if (selectedPokemon.some(p => p.id === pokemonId)) {
+      const newSelectedPokemon = selectedPokemon.filter(
+        p => p.id !== Number(param.id)
+      );
+
+      setSelectedPokemon(newSelectedPokemon);
+
+      return;
+    }
+
     if (selectedPokemon.length > 5) {
       alert('포켓몬은 6마리까지만 선택할 수 있습니다.');
       return;
@@ -52,10 +62,14 @@ const PokemonDetail = ({ selectedPokemon, setSelectedPokemon }) => {
         </StButton>
         <StButton
           onClick={() => {
-            addHandler(param.id);
+            addPokemonHandler(Number(param.id));
           }}
         >
-          추가
+          {selectedPokemon.some(p => {
+            return p.id === Number(param.id);
+          })
+            ? '삭제하기'
+            : '추가하기'}
         </StButton>
       </StButtonContainer>
     </StBox>
