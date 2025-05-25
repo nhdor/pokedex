@@ -4,6 +4,36 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import MOCK_DATA from '../data/mock';
 
+const PokemonDetail = () => {
+  const param = useParams();
+  return (
+    <StBox>
+      {MOCK_DATA.filter(pokemon => pokemon.id === Number(param.id)).map(
+        pokemon => {
+          const { id, korean_name, img_url, description, types } = pokemon;
+          return (
+            <StCard key={id}>
+              <StImg src={img_url} alt='X'></StImg>
+              <StName>{korean_name}</StName>
+              <StType>타입: {types.join(', ')}</StType>
+              <StDescription> {description}</StDescription>
+            </StCard>
+          );
+        }
+      )}
+      <StButton
+        onClick={() => {
+          window.history.back();
+        }}
+      >
+        뒤로가기
+      </StButton>
+    </StBox>
+  );
+};
+
+export default PokemonDetail;
+
 const StBox = styled.div`
   width: 100%;
   height: 100vh;
@@ -54,33 +84,3 @@ const StButton = styled.button`
   border: none;
   border-radius: 10px;
 `;
-
-const Detail = () => {
-  const param = useParams();
-  return (
-    <StBox>
-      {MOCK_DATA.filter(pokemon => pokemon.id === Number(param.id)).map(
-        pokemon => {
-          const { id, korean_name, img_url, description, types } = pokemon;
-          return (
-            <StCard key={id}>
-              <StImg src={img_url} alt='X'></StImg>
-              <StName>{korean_name}</StName>
-              <StType>타입: {types.join(', ')}</StType>
-              <StDescription> {description}</StDescription>
-            </StCard>
-          );
-        }
-      )}
-      <StButton
-        onClick={() => {
-          window.history.back();
-        }}
-      >
-        뒤로가기
-      </StButton>
-    </StBox>
-  );
-};
-
-export default Detail;
