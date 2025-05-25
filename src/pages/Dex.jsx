@@ -1,20 +1,18 @@
 import DashBoard from '../components/Dashboard';
-import PokemonCard from '../components/PokemonCard';
 import PokemonList from '../components/PokemonList';
 import MOCK_DATA from '../data/mock';
-import React, { useState } from 'react';
+import React from 'react';
 
-
-
-
-const Dex = () => {
-  const [selectedPokemon, setSelectedPokemon] = useState([]);
-  
+const Dex = ({ selectedPokemon, setSelectedPokemon }) => {
+  // const [selectedPokemon, setSelectedPokemon] = useState([]);
 
   return (
     <>
       <div>
-        <DashBoard setSelectedPokemon={setSelectedPokemon} selectedPokemon={selectedPokemon} />
+        <DashBoard
+          setSelectedPokemon={setSelectedPokemon}
+          selectedPokemon={selectedPokemon}
+        />
       </div>
       <div>
         <PokemonList
