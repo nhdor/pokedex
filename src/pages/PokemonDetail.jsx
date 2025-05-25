@@ -4,8 +4,29 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import MOCK_DATA from '../data/mock';
 
-const PokemonDetail = () => {
+const PokemonDetail = ({ selectedPokemon, setSelectedPokemon }) => {
   const param = useParams();
+  //param.id = 문자열 주의!
+
+  const addHandler = pokemonId => {
+    if (selectedPokemon.length > 5) {
+      alert('포켓몬은 6마리까지만 선택할 수 있습니다.');
+      return;
+    }
+
+    if (selectedPokemon.some(p => p.id === Number(pokemonId))) {
+      alert('이미 선택한 포켓몬입니다.');
+      return;
+    }
+
+    const findPokemon = MOCK_DATA.find(
+      pokemonObj => pokemonObj.id == Number(pokemonId)
+    );
+
+    setSelectedPokemon([...selectedPokemon, findPokemon]);
+    console.log(selectedPokemon);
+  };
+
   return (
     <StBox>
       {MOCK_DATA.filter(pokemon => pokemon.id === Number(param.id)).map(
@@ -21,13 +42,22 @@ const PokemonDetail = () => {
           );
         }
       )}
-      <StButton
-        onClick={() => {
-          window.history.back();
-        }}
-      >
-        뒤로가기
-      </StButton>
+      <StButtonContainer>
+        <StButton
+          onClick={() => {
+            window.history.back();
+          }}
+        >
+          뒤로가기
+        </StButton>
+        <StButton
+          onClick={() => {
+            addHandler(param.id);
+          }}
+        >
+          추가
+        </StButton>
+      </StButtonContainer>
     </StBox>
   );
 };
@@ -62,7 +92,7 @@ const StImg = styled.img`
 
 const StName = styled.p`
   color: red;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
 `;
 
@@ -70,7 +100,7 @@ const StType = styled.p`
   font-size: 20px;
 `;
 const StDescription = styled.p`
-  width: 500px;
+  width: 600px;
   font-size: 20px;
   display: flex;
   justify-content: center;
@@ -83,4 +113,12 @@ const StButton = styled.button`
   font-size: 20px;
   border: none;
   border-radius: 10px;
+  margin: 10px;
+`;
+
+const StButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border: none;
 `;

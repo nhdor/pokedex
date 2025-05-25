@@ -7,7 +7,7 @@ const PokemonCard = ({ selectedPokemon, setSelectedPokemon, pokemon }) => {
 
   const navigate = useNavigate();
 
-  const clickHandler = pokemonId => {
+  const addHandler = pokemonId => {
     if (selectedPokemon.length > 5) {
       alert('포켓몬은 6마리까지만 선택할 수 있습니다.');
       return;
@@ -36,7 +36,7 @@ const PokemonCard = ({ selectedPokemon, setSelectedPokemon, pokemon }) => {
       </Temp>
       <StButton
         onClick={() => {
-          clickHandler(id);
+          addHandler(id);
         }}
       >
         추가
