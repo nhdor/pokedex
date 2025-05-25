@@ -3,38 +3,35 @@ import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import MOCK_DATA from '../data/mock';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  registerPokemon,
+  removePokemon
+} from '../redux/slices/selectPokemonSlice';
 
-const PokemonDetail = ({ selectedPokemon, setSelectedPokemon }) => {
+const PokemonDetail = () => {
+  const dispatch = useDispatch();
+  const selectedPokemon = useSelector(state => state.selectPokemon);
+
   const param = useParams();
   //param.id = 문자열 주의!
 
   const addPokemonHandler = pokemonId => {
+    //제거
+    const pokemon = MOCK_DATA.find(pokemon => pokemon.id === pokemonId);
+
     if (selectedPokemon.some(p => p.id === pokemonId)) {
-      const newSelectedPokemon = selectedPokemon.filter(
-        p => p.id !== Number(param.id)
-      );
-
-      setSelectedPokemon(newSelectedPokemon);
-
+      dispatch(removePokemon(pokemonId));
       return;
     }
 
-    if (selectedPokemon.length > 5) {
+    if (selectedPokemon.length >= 6) {
       alert('포켓몬은 6마리까지만 선택할 수 있습니다.');
       return;
     }
 
-    if (selectedPokemon.some(p => p.id === Number(pokemonId))) {
-      alert('이미 선택한 포켓몬입니다.');
-      return;
-    }
-
-    const findPokemon = MOCK_DATA.find(
-      pokemonObj => pokemonObj.id == Number(pokemonId)
-    );
-
-    setSelectedPokemon([...selectedPokemon, findPokemon]);
-    console.log(selectedPokemon);
+    //등록
+    dispatch(registerPokemon(pokemon));
   };
 
   return (
@@ -60,11 +57,7 @@ const PokemonDetail = ({ selectedPokemon, setSelectedPokemon }) => {
         >
           뒤로가기
         </StButton>
-        <StButton
-          onClick={() => {
-            addPokemonHandler(Number(param.id));
-          }}
-        >
+        <StButton onClick={() => addPokemonHandler(Number(param.id))}>
           {selectedPokemon.some(p => {
             return p.id === Number(param.id);
           })

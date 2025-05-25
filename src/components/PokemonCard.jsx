@@ -2,8 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  registerPokemon,
+  removePokemon
+} from '../redux/slices/selectPokemonSlice';
 
-const PokemonCard = ({ selectedPokemon, setSelectedPokemon, pokemon }) => {
+const PokemonCard = ({ pokemon }) => {
+  const dispatch = useDispatch();
+  const selectedPokemon = useSelector(state => state.selectPokemon);
+
   const { img_url, korean_name, id } = pokemon;
 
   const navigate = useNavigate();
@@ -11,18 +19,17 @@ const PokemonCard = ({ selectedPokemon, setSelectedPokemon, pokemon }) => {
   const addHandler = pokemonId => {
     if (selectedPokemon.length >= 6) {
       toast('포켓몬은 6마리까지만 선택할 수 있습니다.');
-      // alert('포켓몬은 6마리까지만 선택할 수 있습니다.');
+
       return;
     }
 
     if (selectedPokemon.some(p => p.id === pokemonId)) {
       toast('이미 선택한 포켓몬입니다.');
-      // alert('이미 선택한 포켓몬입니다.');
+
       return;
     }
 
-    setSelectedPokemon([...selectedPokemon, pokemon]);
-    console.log(selectedPokemon);
+    dispatch(registerPokemon(pokemon));
   };
 
   return (
@@ -37,13 +44,7 @@ const PokemonCard = ({ selectedPokemon, setSelectedPokemon, pokemon }) => {
         <p>{korean_name}</p>
         <p>{'No.' + String(id).padStart(3, '0')}</p>
       </Temp>
-      <StButton
-        onClick={() => {
-          addHandler(id);
-        }}
-      >
-        추가
-      </StButton>
+      <StButton onClick={() => addHandler(id)}>추가</StButton>
     </PokemonCardSector>
   );
 };

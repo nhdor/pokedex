@@ -3,6 +3,18 @@ import styled from 'styled-components';
 
 import PokemonCard from './PokemonCard';
 
+const PokemonList = ({ pokemonList }) => {
+  return (
+    <StBox>
+      {pokemonList.map(pokemon => (
+        <PokemonCard key={pokemon.id} pokemon={pokemon} />
+      ))}
+    </StBox>
+  );
+};
+
+export default PokemonList;
+
 const StBox = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -13,20 +25,3 @@ const StBox = styled.div`
   margin: 20px;
   background-color: rgba(217, 244, 253, 0.57);
 `;
-
-const PokemonList = ({ selectedPokemon, setSelectedPokemon, pokemonList }) => {
-  return (
-    <StBox>
-      {pokemonList.map(pokemon => (
-        <PokemonCard
-          key={pokemon.id}
-          selectedPokemon={selectedPokemon}
-          setSelectedPokemon={setSelectedPokemon}
-          pokemon={pokemon}
-        />
-      ))}
-    </StBox>
-  );
-};
-
-export default PokemonList;

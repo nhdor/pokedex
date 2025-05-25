@@ -1,5 +1,62 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { removePokemon } from '../redux/slices/selectPokemonSlice';
+
+const Dashboard = () => {
+  const dispatch = useDispatch();
+  const selectedPokemon = useSelector(state => state.selectPokemon);
+
+  const totalSlots = 6;
+  const cards = [...selectedPokemon];
+
+  while (cards.length < totalSlots) {
+    cards.push(null);
+  }
+
+  const handleDelete = id => {
+    dispatch(removePokemon(id));
+  };
+
+  return (
+    <StView>
+      <StTitle>나만의 포켓몬</StTitle>
+      <StCardContainer>
+        {cards.map((pokemon, index) => {
+          if (pokemon === null) {
+            return (
+              <StPokeBall
+                key={'null' + index}
+                src='/static/pokeball.png'
+              ></StPokeBall>
+            );
+          }
+
+          const { id, korean_name, img_url } = pokemon;
+          return (
+            <StCard key={id}>
+              <img src={img_url} alt='X' />
+              <p>{korean_name}</p>
+              <p>{'No.' + String(id).padStart(3, '0')}</p>
+              <button onClick={() => handleDelete(id)}>삭제</button>
+            </StCard>
+          );
+        })}
+      </StCardContainer>
+    </StView>
+  );
+};
+
+export default Dashboard;
+const StTitle = styled.div`
+  align-self: center;
+  margin-top: 40px;
+  font-size: 1.5em;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  color: #2c3e50; /* 진한 회색 */
+`;
 
 const StView = styled.div`
   display: flex;
@@ -41,56 +98,4 @@ const StCard = styled.div`
   margin: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: white;
-`;
-
-const Dashboard = ({ selectedPokemon, setSelectedPokemon }) => {
-  const totalSlots = 6;
-  const cards = [...selectedPokemon];
-
-  while (cards.length < totalSlots) {
-    cards.push(null);
-  }
-
-  const handleDelete = id => {
-    const newSelectedPokemon = selectedPokemon.filter(p => p.id !== id);
-    setSelectedPokemon(newSelectedPokemon);
-  };
-  return (
-    <StView>
-      <StTitle>나만의 포켓몬</StTitle>
-      <StCardContainer>
-        {cards.map((pokemon, index) => {
-          if (pokemon === null) {
-            return (
-              <StPokeBall
-                key={'null' + index}
-                src='/static/pokeball.png'
-              ></StPokeBall>
-            );
-          }
-
-          const { id, korean_name, img_url } = pokemon;
-          return (
-            <StCard key={id}>
-              <img src={img_url} alt='X' />
-              <p>{korean_name}</p>
-              <p>{'No.' + String(id).padStart(3, '0')}</p>
-              <button onClick={() => handleDelete(id)}>삭제</button>
-            </StCard>
-          );
-        })}
-      </StCardContainer>
-    </StView>
-  );
-};
-
-export default Dashboard;
-const StTitle = styled.div`
-  align-self: center;
-  margin-top: 40px;
-  font-size: 1.5em;
-  font-weight: bold;
-  width: 100%;
-  text-align: center;
-  color: #2c3e50; /* 진한 회색 */
 `;
