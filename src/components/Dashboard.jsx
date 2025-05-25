@@ -7,7 +7,6 @@ const StView = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-
   width: 88%;
   margin: 20px;
   box-sizing: border-box;
@@ -18,9 +17,18 @@ const StCardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   width: 100%;
   height: 300px;
-  border: 1px solid red;
+`;
+
+const StPokeBall = styled.img`
+  height: 60px;
+  margin: 30px;
+  border: dotted 3px rgba(12, 160, 214, 0.28);
+  border-radius: 10px;
+  padding: 30px;
+  background-color: white;
 `;
 
 const StCard = styled.div`
@@ -28,11 +36,12 @@ const StCard = styled.div`
   flex-direction: column;
   align-items: center;
   border: 1px solid #ddd;
+  border-radius: 10px;
   padding: 12px;
   width: 120px;
   margin: 10px;
-  border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
 `;
 
 const Dashboard = ({ selectedPokemon, setSelectedPokemon }) => {
@@ -40,8 +49,7 @@ const Dashboard = ({ selectedPokemon, setSelectedPokemon }) => {
   const cards = [...selectedPokemon];
 
   while (cards.length < totalSlots) {
-    cards.push(null); // 빈칸은 null
-    console.log(cards);
+    cards.push(null);
   }
 
   const handleDelete = id => {
@@ -52,20 +60,23 @@ const Dashboard = ({ selectedPokemon, setSelectedPokemon }) => {
     <StView>
       <StTitle>나만의 포켓몬</StTitle>
       <StCardContainer>
-        {selectedPokemon.map(pokemon => {
+        {cards.map((pokemon, index) => {
+          if (pokemon === null) {
+            return (
+              <StPokeBall
+                key={'null' + index}
+                src='/static/pokeball.png'
+              ></StPokeBall>
+            );
+          }
+
           const { id, korean_name, img_url } = pokemon;
           return (
             <StCard key={id}>
-              <img src={img_url} alt='X'></img>
+              <img src={img_url} alt='X' />
               <p>{korean_name}</p>
               <p>{'No.' + String(id).padStart(3, '0')}</p>
-              <button
-                onClick={() => {
-                  handleDelete(id);
-                }}
-              >
-                삭제
-              </button>
+              <button onClick={() => handleDelete(id)}>삭제</button>
             </StCard>
           );
         })}
@@ -77,9 +88,10 @@ const Dashboard = ({ selectedPokemon, setSelectedPokemon }) => {
 export default Dashboard;
 const StTitle = styled.div`
   align-self: center;
-  margin-bottom: 15px;
+  margin-top: 40px;
   font-size: 1.5em;
   font-weight: bold;
   width: 100%;
   text-align: center;
+  color: #2c3e50; /* 진한 회색 */
 `;
