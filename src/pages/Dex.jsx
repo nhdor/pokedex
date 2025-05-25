@@ -1,5 +1,4 @@
 import DashBoard from '../components/Dashboard';
-import PokemonCard from '../components/PokemonCard';
 import PokemonList from '../components/PokemonList';
 import MOCK_DATA from '../data/mock';
 import React from 'react';
