@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../App';
 import { useContext } from 'react';
+import Swal from 'sweetalert2';
 
 const PokemonCard = ({ pokemon }) => {
   const { img_url, korean_name, id } = pokemon;
@@ -11,13 +12,23 @@ const PokemonCard = ({ pokemon }) => {
   const navigate = useNavigate();
 
   const addPokemonHandler = pokemonId => {
-    if (selectedPokemon.length > 5) {
-      alert('포켓몬은 6마리까지만 선택할 수 있습니다.');
+    if (selectedPokemon.length >= 6) {
+      Swal.fire({
+        title: '잠깐!',
+        text: '포켓몬은 최대 6마리만 선택할 수 있습니다.',
+        icon: 'warning',
+        confirmButtonText: '확인'
+      });
       return;
     }
 
     if (selectedPokemon.some(p => p.id === pokemonId)) {
-      alert('이미 선택한 포켓몬입니다.');
+      Swal.fire({
+        title: '잠깐!',
+        text: '이미 선택하지 않으셨나요?',
+        icon: 'warning',
+        confirmButtonText: '확인'
+      });
       return;
     }
 
