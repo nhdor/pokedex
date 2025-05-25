@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { Toaster, toast } from 'sonner';
 
 const PokemonCard = ({ selectedPokemon, setSelectedPokemon, pokemon }) => {
   const { img_url, korean_name, id } = pokemon;
@@ -8,13 +9,13 @@ const PokemonCard = ({ selectedPokemon, setSelectedPokemon, pokemon }) => {
   const navigate = useNavigate();
 
   const addHandler = pokemonId => {
-    if (selectedPokemon.length > 5) {
-      alert('포켓몬은 6마리까지만 선택할 수 있습니다.');
+    if (selectedPokemon.length >= 6) {
+      toast.error('포켓몬은 6마리까지만 선택할 수 있습니다.');
       return;
     }
 
     if (selectedPokemon.some(p => p.id === pokemonId)) {
-      alert('이미 선택한 포켓몬입니다.');
+      toast.error('이미 선택한 포켓몬입니다.');
       return;
     }
 
